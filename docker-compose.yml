@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  # Service 1: Le Stockage S3 (MinIO)
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000" # API S3
+      - "9001:9001" # Console Web
+    environment:
+      MINIO_ROOT_USER: nexus_admin
+      MINIO_ROOT_PASSWORD: azerty123
+
+  # Service 2: La Base de données (Consentements & Logs)
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: nexus_user
+      POSTGRES_PASSWORD: db_password
+      POSTGRES_DB: nexus_db
+    ports:
+      - "5432:5432"
+
+  # Service 3: API Python
+  nexus-api:
+    build: ./nexus-api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - minio
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=nexus_db
+      - DB_USER=nexus_user
+      - DB_PASS=db_password
+      - AWS_ACCESS_KEY_ID=nexus_admin
+      - AWS_SECRET_ACCESS_KEY=azerty123
+      - S3_ENDPOINT_URL=http://minio:9000

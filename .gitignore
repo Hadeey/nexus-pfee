@@ -1,0 +1,36 @@
+# --- PYTHON ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- ENVIRONNEMENTS VIRTUELS ---
+# Pour ne pas envoyer tes dossiers venv sur Git
+venv/
+.venv/
+env/
+
+# --- SÉCURITÉ & VARIABLES D'ENV ---
+# CRITIQUE : Ne jamais commiter ses mots de passe !
+.env
+.env.local
+
+# --- SYSTÈME D'EXPLOITATION (MAC/WINDOWS) ---
+.DS_Store
+Thumbs.db
+
+# --- ÉDITEURS DE CODE ---
+.vscode/
+.idea/
+
+# --- DONNÉES DU PROJET NEXUS (DOCKER) ---
+# On ne veut SURTOUT PAS commiter les bases de données et les fichiers stockés
+data/
+data/minio_data/
+data/pg_data/
+
+# --- FICHIERS TEMPORAIRES DE DÉMO ---
+# Fichiers créés par le script de test demo_complete.py
+irm_test.txt
+*.log
+keys/
