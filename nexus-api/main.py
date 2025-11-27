@@ -19,6 +19,8 @@ async def lifespan(app: FastAPI):
         print(f"[INFO] Vérification Bucket : {e}")
         
     yield
+    print("[SHUTDOWN] Fermeture des ressources si nécessaire.")
+    db.close()
 
 app = FastAPI(lifespan=lifespan)
 
