@@ -37,3 +37,14 @@ services:
       - AWS_ACCESS_KEY_ID=nexus_admin
       - AWS_SECRET_ACCESS_KEY=azerty123
       - S3_ENDPOINT_URL=http://minio:9000
+      - API_TOKEN=secure-token-123
+      # Clé générée pour la persistance (À CHANGER EN PROD)
+      - ENCRYPTION_KEY=W30_w2vxZz-tO8_o9P6d2q3E4r5T6y7U8i9O0p1A2s3=
+
+  # Service 4: Interface UI (Nginx)
+  nexus-ui:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nexus-ui:/usr/share/nginx/html:ro

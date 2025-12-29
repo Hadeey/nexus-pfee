@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS - Secure Cloud Sante</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>NEXUS <span class="badge">PFEE Security PoC</span></h1>
+            <p>Plateforme Souveraine & Zero-Trust pour Données Médicales</p>
+        </header>
+
+        <!-- CONFIGURATION -->
+        <section class="panel config-panel">
+            <h2>⚙️ Configuration</h2>
+            <div class="input-group">
+                <input type="text" id="api-url" value="http://localhost:8000" placeholder="API URL">
+                <input type="password" id="api-token" value="secure-token-123" placeholder="Token d'Accès">
+            </div>
+        </section>
+
+        <div class="grid">
+            <!-- RÔLE 1 : MÉDECIN -->
+            <section class="panel role-medecin">
+                <h2>🩺 Espace Médecin (Upload)</h2>
+                <div class="card">
+                    <label>Patient ID</label>
+                    <input type="text" id="upload-patient-id" value="patient01">
+                    <input type="file" id="file-upload">
+                    <button onclick="uploadFile()" class="btn-primary">Envoyer & Chiffrer</button>
+                    <div id="upload-status" class="status-msg"></div>
+                </div>
+            </section>
+
+            <!-- RÔLE 2 : PATIENT -->
+            <section class="panel role-patient">
+                <h2>👤 Espace Patient (Consentement)</h2>
+                <div class="card">
+                    <label>Votre ID</label>
+                    <input type="text" id="revoke-patient-id" value="patient01">
+                    <div class="actions">
+                        <button onclick="revokeAccess()" class="btn-danger">Révoquer mon consentement</button>
+                    </div>
+                    <p class="info-text">Bloque instantanément tout accès futur.</p>
+                    <div id="revoke-status" class="status-msg"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="grid">
+            <!-- RÔLE 3 : IA / CHERCHEUR -->
+            <section class="panel role-ai">
+                <h2>🤖 Espace IA (Lecture)</h2>
+                <div class="card">
+                    <label>Cible (Patient ID / Filename)</label>
+                    <div class="input-group">
+                        <input type="text" id="read-patient-id" value="patient01">
+                        <input type="text" id="read-filename" placeholder="nom_du_fichier">
+                    </div>
+                    <button onclick="readFile()" class="btn-secondary">Accéder & Déchiffrer</button>
+                    <div id="read-status" class="status-msg"></div>
+                    <pre id="file-content-display" class="code-block" style="display:none;"></pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- AUDIT LOGS -->
+        <section class="panel logs-panel">
+            <div class="logs-header">
+                <h2>🛡️ Live Audit Logs (Blockchain-ready)</h2>
+                <button onclick="fetchLogs()" class="btn-small">Rafraîchir</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Heure</th>
+                        <th>Patient</th>
+                        <th>Action</th>
+                        <th>Utilisateur</th>
+                        <th>Statut</th>
+                        <th>Détails</th>
+                    </tr>
+                </thead>
+                <tbody id="logs-table-body">
+                    <!-- Logs injection -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
